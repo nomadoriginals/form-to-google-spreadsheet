@@ -4,7 +4,7 @@
     <title>Form to Google Spreadsheet</title>
 </head>
 <body>
-    <form id="submitForm" method="POST" action="https://script.google.com/macros/s/AKfycbzVfnNQ72OEN2VJIigCE88u5bEXkcMGNQcb7pjiwK9CgkzN40RE_I9w6FbN9_yQQOdTaA/exec">
+    <form id="submitForm" method="POST" action="https://script.google.com/a/macros/nomadoriginals.com/s/AKfycbx2WoI7FLntMNoL__6jsYlig71qeE9s9zu4_rQL09fnVnnEaVaGo6MCE8lwDFqXKp88sw/exec">
         <label for="name">Name:</label>
         <input type="text" id="name" name="Name" required>
         
@@ -18,33 +18,37 @@
     </form>
 
     <script>
-        // Ensure the script runs after the DOM is fully loaded
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('submitForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-                const formData = new FormData(event.target);
-                const object = {};
-                formData.forEach((value, key) => { object[key] = value });
-                const json = JSON.stringify(object);
+            const form = document.getElementById('submitForm');
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const formData = new FormData(event.target);
+                    const object = {};
+                    formData.forEach((value, key) => { object[key] = value });
+                    const json = JSON.stringify(object);
 
-                fetch(event.target.action, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: json,
-                }).then(response => {
-                    if (response.ok) {
-                        alert('Form submitted successfully!');
-                    } else {
-                        alert('Error submitting form');
-                        console.log('Error:', response.statusText);
-                    }
-                }).catch(error => {
-                    alert('Error: ' + error.message);
-                    console.log('Error details:', error);
+                    fetch(event.target.action, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: json,
+                    }).then(response => {
+                        if (response.ok) {
+                            alert('Form submitted successfully!');
+                        } else {
+                            alert('Error submitting form');
+                            console.log('Error:', response.statusText);
+                        }
+                    }).catch(error => {
+                        alert('Error: ' + error.message);
+                        console.log('Error details:', error);
+                    });
                 });
-            });
+            } else {
+                console.error('Form element not found!');
+            }
         });
     </script>
 </body>
