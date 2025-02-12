@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form to Google Spreadsheet</title>
+</head>
+<body>
+    <form id="submitForm" method="POST" action="https://cors-anywhere.herokuapp.com/https://script.google.com/a/macros/nomadoriginals.com/s/AKfycbx2WoI7FLntMNoL__6jsYlig71qeE9s9zu4_rQL09fnVnnEaVaGo6MCE8lwDFqXKp88sw/exec">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="Name" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="Email" required>
+        
+        <label for="message">Message:</label>
+        <textarea id="message" name="Message" required></textarea>
+        
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('submitForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const object = {};
+            formData.forEach((value, key) => { object[key] = value });
+            const json = JSON.stringify(object);
+
+            fetch(event.target.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: json,
+            }).then(response => {
+                if (response.ok) {
+                    alert('Form submitted successfully!');
+                } else {
+                    alert('Error submitting form');
+                }
+            }).catch(error => {
+                alert('Error: ' + error.message);
+            });
+        });
+    </script>
+</body>
+</html>
