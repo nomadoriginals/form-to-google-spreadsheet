@@ -4,46 +4,10 @@
     <title>Form to Google Spreadsheet</title>
 </head>
 <body>
-    <h2>Submit Your Details</h2>
-    <form id="submitForm" method="POST" action="https://script.google.com/macros/s/AKfycby-WSjE0XlgwZDJJTHpdO-ck1FrT-d587zuJriIAeKhBpltJ25lIruGfnAZkK7B-UMXcA/exec">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="Name" required>
-        <br><br>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="Email" required>
-        <br><br>
-        
-        <label for="message">Message:</label>
-        <textarea id="message" name="Message" required></textarea>
-        <br><br>
-        
-        <button type="submit">Submit</button>
-    </form>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('submitForm');
-
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const formData = new FormData(form);
-
-                fetch(form.action, {
-                    method: 'POST',
-                    body: formData, // Send form data properly
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert('Form submitted successfully!');
-                    form.reset(); // Clear the form after submission
-                })
-                .catch(error => {
-                    alert('Error submitting form');
-                    console.log('Error:', error);
-                });
-            });
-        });
-    </script>
+<form method="POST" action="YOUR_APP_SCRIPT_URL">
+  <input name="Email" type="email" placeholder="Email" required>
+  <input name="Name" type="text" placeholder="Name" required>
+  <button type="submit">Send</button>
+</form>
 </body>
 </html>
